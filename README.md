@@ -1,1 +1,1 @@
-# ECPayPaymentGWKit_iOS
+# ECPayPaymentKitV2_iOS
