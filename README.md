@@ -1,1 +1,1 @@
-# ECPayPaymentGateWay_iOS
+# ECPayPaymentGateway_iOS
