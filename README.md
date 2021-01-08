@@ -23,7 +23,7 @@
 > 請注意，此套件使用 XCFramework 製作，Cocoapods 的版本必須要是 1.10.0 以上。
 
 ### [CocoaPods](http://cocoapods.org)
-[![CocoaPods](https://img.shields.io/cocoapods/v/ECPayPaymentGateway.svg)](https://cocoapods.org/pods/ECPayPaymentGateway)
+[![CocoaPods](https://img.shields.io/cocoapods/v/ECPayPaymentGatewayKit.svg)](https://cocoapods.org/pods/ECPayPaymentGatewayKit)
 
 Podfile內容
 ````ruby
