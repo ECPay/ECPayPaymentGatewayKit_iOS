@@ -80,8 +80,7 @@ ECPayPaymentManager.sharedInstance().initialize(env: .Stage)
 ````
 
 ### CreatePayment
-信用卡交易。填入交易 Token 以及交易編號等待 callback 即可。
-ps: 下列程式碼請參考範例專案內 ViewController.swift
+信用卡交易。填入交易 Token 以及交易編號等待 callback 即可。請參考 ViewController.swift 程式碼如下：
 ````swift
 ECPayPaymentGatewayManager.sharedInstance().createPayment(token: token,
                                                           merchantID: "",
