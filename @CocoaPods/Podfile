@@ -1,13 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '10.0'
 
-workspace 'ECPayPaymentGateway-Example'
+workspace 'ECPayPaymentGatewayKit-Example'
 
 inhibit_all_warnings!
 use_frameworks!
 
 def podsIC
-    pod 'ECPayPaymentGateway', '~> 0.0.1'
+    pod 'ECPayPaymentGatewayKit', '~> 0.0.2'
     ##### Net #####
     pod 'PromiseKit' , '~> 6.8.3'
     pod 'Alamofire', '~> 5.2.1'
