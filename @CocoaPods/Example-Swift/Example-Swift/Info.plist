@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0.499</string>
+	<string>1.0.1.5</string>
 	<key>ENV</key>
-	<string>beta</string>
+	<string>stage</string>
 	<key>GitHash</key>
-	<string>a12d1d1</string>
+	<string>038e313</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
