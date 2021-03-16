@@ -24,3 +24,15 @@ target 'Example-Swift' do
   project 'Example-Swift/Example-Swift.xcodeproj'
   podsIC
 end
+
+static_frameworks = ['ECPayPaymentGatewayKit']
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if static_frameworks.include?(pod.name)
+      puts "#{pod.name} installed as static framework!"
+      def pod.static_framework?;
+        true
+      end
+    end
+  end
+end

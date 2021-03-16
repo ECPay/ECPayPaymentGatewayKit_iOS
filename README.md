@@ -43,9 +43,38 @@ pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.gi
 pod 'CryptoSwift', '~> 0.14.0'
 ````
 
-範例專案以 Swift 為主，請在 [Podfile] 同層目錄下執行以下指令：
+由於此套件為 static framework，我們在安裝 cocoapods 前，需要以下指令在 podfile 最底部
+```ruby
+static_frameworks = ['ECPayPaymentGatewayKit']
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if static_frameworks.include?(pod.name)
+      puts "#{pod.name} installed as static framework!"
+      def pod.static_framework?;
+        true
+      end
+    end
+  end
+end
+
+```
+
+範例專案以 Swift 為主，安裝時請在 [Podfile] 同層目錄下執行以下指令：
+
 ````ruby
 pod install
+````
+
+若要避免快取，我們可以改由以下的指令安裝。
+
+````ruby
+#曾經安裝過SDK的話，請先解除安裝
+pod deintegrate '可能需要有 .xcodeproj 的路徑' 
+#再清除快取 (若有多個，請多次執行該指令刪除)
+pod cache clean ECPayPaymentGatewayKit
+
+#重新安裝更新的版本
+pod install --repo-update
 ````
 
 ## Usage
