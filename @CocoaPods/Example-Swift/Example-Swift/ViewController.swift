@@ -99,12 +99,13 @@ class ViewController: UIViewController {
         
         //MARK: trade token
         if isTradeToken {
-            
+            let params = tradeTokenRequestData(paymentUIType: tokenType, merchantID: merchantData.merchantID)
             ECPayPaymentGatewayManager.sharedInstance().testToGetTestingTradeToken(paymentUIType: tokenType,
                                                                                    is3D: three_d_Switch.isOn,
                                                                                    merchantID: merchantData.merchantID,
                                                                                    aesKey: merchantData.aesKey,
-                                                                                   aesIV: merchantData.aesIV){ (state) in
+                                                                                   aesIV: merchantData.aesIV,
+                                                                                   parameters: params){ (state) in
                 
                 self.stopLoading()
 
@@ -127,16 +128,19 @@ class ViewController: UIViewController {
                     let aa = UIAlertAction(title: "好", style: UIAlertAction.Style.default, handler: nil)
                     ac.addAction(aa)
                     self.present(ac, animated: true, completion: nil)
+                    self.resultTextView.text = state.callbackStateMessage
                 }
             }
         }
         
         //MARK: user token
         if isUserToken {
+            let params = userTokenRequestData(merchantData.merchantID)
             ECPayPaymentGatewayManager.sharedInstance().testToGetTestingUserToken(is3D: three_d_Switch.isOn,
                                                                                   merchantID: merchantData.merchantID,
                                                                                   aesKey: merchantData.aesKey,
-                                                                                  aesIV: merchantData.aesIV) { (state) in
+                                                                                  aesIV: merchantData.aesIV,
+                                                                                  parameters: params) { (state) in
                 self.stopLoading()
                 
                 print("state.callbackStateStatus = \(state.callbackStateStatus.toString())")
@@ -254,5 +258,115 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         self.tokenType = row
         self.tokenTypeChange()
         self.switchChanged(mySwitch: self.three_d_Switch) //切換類型時，強制把 token 等文字框欄位清空。
+    }
+}
+
+
+extension ViewController {
+
+    func tradeTokenRequestData(paymentUIType: Int = 0, merchantID: String) -> [String: Any] {
+        let periodType:String = "M"
+        let frequency:Int = 12 //至少要大於等於 1次以上。
+                             //當 PeriodType 設為 D 時，最多可設 365次。
+                             //當 PeriodType 設為 M 時，最多可設 12 次。
+                             //當 PeriodType 設為 Y 時，最多可設 1 次。
+        
+        let execTimes:Int = 99 //至少要大於 1 次以上。
+                             //當 PeriodType 設為 D 時，最多可設 999次。
+                             //當 PeriodType 設為 M 時，最多可設 99 次。
+                             //當 PeriodType 設為 Y 時，最多可設 9 次。
+        let paymentListType = 0 //currentTestMode == TestMode.is3D ? "1" : "0"
+        
+        let decryptedDictionary
+        =
+        [
+            "MerchantID": merchantID,
+            "RememberCard": 1,
+            "PaymentUIType": paymentUIType,
+            "ChoosePaymentList": paymentListType, //0:全部，1:單純信用卡一次繳清
+            "OrderInfo": [
+               //"MerchantTradeNo": "4200000515202003205168406290",
+                "MerchantTradeNo": Int(Date().timeIntervalSince1970 * 1000),
+               "MerchantTradeDate": getCurrentDateString(), //"2018/09/03 18:35:20",
+               "TotalAmount": 200,
+               "ReturnURL":"https://tw.yahoo.com/",
+               "TradeDesc":"測試交易",
+               "ItemName":"測試商品"
+            ],
+            "CardInfo": [
+                "Redeem":"0",
+                "PeriodAmount":paymentUIType == 0 ? 200 : 0, //當PaymentUIType為0時，此欄位必填 (必須等於TotalAmount)
+                "PeriodType":periodType,
+                "Frequency":frequency,
+                "ExecTimes":execTimes,
+                "OrderResultURL":"https://www.microsoft.com/",
+                "PeriodReturnURL":"",
+                "CreditInstallment":"3,12,24",
+                "TravelStartDate":getMMDDYYYY(),
+                "TravelEndDate":getMMDDYYYY(),
+                "TravelCounty":"001"
+            ],
+            "ATMInfo":[
+                "ExpireDate":5
+            ],
+            "CVSInfo":[
+                "StoreExpireDate":"10080",
+                "Desc_1":"條碼一",
+                "Desc_2":"條碼二",
+                "Desc_3":"條碼三",
+                "Desc_4":"條碼四"
+            ],
+            "BarcodeInfo":[
+                "StoreExpireDate":5
+            ],
+            "ConsumerInfo": [
+                "MerchantMemberID":"1234567",
+                "Email": "test@gmail.com",
+                "Phone": "0910000222",
+                "Name": "黃小鴨",
+                "CountryCode":"002",
+                "Address": "台北市南港區三重路19-2號 6號棟樓之2, D"
+            ],
+            "CardList":[
+                ["PayToken":"123456789","Card6No":"123456","Card4No":"1234","IsValid":1,"BankName":"玉山銀行","Code":"002"],
+                ["PayToken":"987456123","Card6No":"654123","Card4No":"1111","IsValid":1,"BankName":"台新銀行","Code":"003"]
+            ]
+        ] as [String : Any]
+        
+        return decryptedDictionary
+    }
+    func userTokenRequestData(_ merchantID: String) -> [String: Any] {
+        let decryptedDictionary: [String:Any]
+        =
+        [
+            "PlatformID": merchantID,
+            "MerchantID": merchantID,
+            "ConsumerInfo": [
+                "MerchantMemberID":"1234567",
+                "Email": "test@gmail.com",
+                "Phone": "0910000222",
+                "Name": "黃小鴨",
+                "CountryCode":"002",
+                "Address": ""
+            ],
+        ] as [String:Any]
+        
+        return decryptedDictionary
+    }
+    func getMMDDYYYY() -> String {
+        let date = Date()
+        let format = DateFormatter()
+        //format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        format.dateFormat = "MMddyyyy"
+        let formattedDate = format.string(from: date)
+        return formattedDate
+    }
+    func getCurrentDateString() -> String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //format.dateFormat = "MMddyyyy"
+        let formattedDate = format.string(from: date)
+        return formattedDate
     }
 }
