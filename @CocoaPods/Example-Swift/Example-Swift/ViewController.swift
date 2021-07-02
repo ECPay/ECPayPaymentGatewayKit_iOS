@@ -364,7 +364,7 @@ extension ViewController {
     func getCurrentDateString() -> String {
         let date = Date()
         let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        format.dateFormat = "yyyy/MM/dd HH:mm:ss"
         //format.dateFormat = "MMddyyyy"
         let formattedDate = format.string(from: date)
         return formattedDate
