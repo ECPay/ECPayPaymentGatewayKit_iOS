@@ -37,11 +37,28 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var three_d_stackVw: UIStackView!
     @IBOutlet weak var three_d_Switch: UISwitch!
+    
+    
+    @IBOutlet weak var merchant_id_stackVw: UIStackView!
+    @IBOutlet weak var merchantIDTextField: UITextField!
+    @IBOutlet weak var aes_key_stackVw: UIStackView!
+    @IBOutlet weak var aesKeyTextField: UITextField!
+    @IBOutlet weak var aes_iv_stackVw: UIStackView!
+    @IBOutlet weak var aesIVTextField: UITextField!
+    
+    
     @IBOutlet weak var use_resultPage_Switch: UISwitch!
     @IBOutlet weak var use_enUS_Switch: UISwitch!
     
     var merchantData: (merchantID: String, aesKey: String, aesIV: String) {
         get {
+            
+            if ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() == "prod" {
+                return (merchantIDTextField.text ?? "",
+                        aesKeyTextField.text ?? "",
+                        aesIVTextField.text ?? "")
+            }
+            
             let is3D = three_d_Switch.isOn
             let merchantID = (is3D) ? "3002607" : "2000132"
             let aesKey = (is3D) ? "pwFHCqoQZGmho4w6" : "5294y06JbISpM5x9"
@@ -77,6 +94,24 @@ class ViewController: UIViewController {
         
         tokenTypeChange()
         tokenTypePickerView.selectRow(tokenType, inComponent: 0, animated: false)
+        
+        // prod, or...
+        var hideViews: [UIView] = []
+        if ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() == "prod" {
+            hideViews = [
+                three_d_stackVw,
+                three_d_Switch
+            ]
+        } else {
+            hideViews = [
+                merchant_id_stackVw, merchantIDTextField,
+                aes_key_stackVw, aesKeyTextField,
+                aes_iv_stackVw, aesIVTextField
+            ]
+        }
+        for hideView in hideViews {
+            hideView.isHidden = true
+        }
         
     }
     func tokenTypeChange() {
@@ -300,7 +335,7 @@ extension ViewController {
                 "Frequency":frequency,
                 "ExecTimes":execTimes,
                 "OrderResultURL":"https://www.microsoft.com/",
-                "PeriodReturnURL":"",
+                "PeriodReturnURL":"https://www.ecpay.com.tw/",
                 "CreditInstallment":"3,12,24",
                 "TravelStartDate":getMMDDYYYY(),
                 "TravelEndDate":getMMDDYYYY(),
