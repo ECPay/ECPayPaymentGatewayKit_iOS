@@ -223,8 +223,8 @@ class ViewController: UIViewController {
                 //
                 self.resultTextView.text = state.description
                 
-                print(state)
-                print("")
+//                print(state)
+//                print("")
                 
                 // if state.callbackStateStatus == .Success {
                 //
@@ -237,6 +237,59 @@ class ViewController: UIViewController {
                 //     print(" CardInfo = \(state_.CardInfo)")
                 //
                 // }
+                
+                
+                if let callbackState = state as? CreatePaymentCallbackState {
+                    
+                    print("CreatePaymentCallbackState:")
+                    print("RtnCode = \(callbackState.RtnCode)")
+                    print("RtnMsg = \(callbackState.RtnMsg)")
+                    
+                    if let order = callbackState.OrderInfo {
+                        print("\(order)")
+                        print("\(order.MerchantTradeNo ?? "")")
+                        print("\(order.TradeNo ?? "")")
+                        print("\(order.TradeDate)")
+                        print("\(order.TradeStatus ?? 0)")
+                    }
+                    if let card = callbackState.CardInfo {
+                        print("\(card)")
+                        print("\(card.AuthCode ?? "")")
+                        print("\(card.Gwsr ?? "")")
+                        print("\(card.ProcessDate)")
+                        print("\(card.Stage ?? 0)")
+                        print("\(card.Stast ?? 0)")
+                        print("\(card.Staed ?? 0)")
+                        print("\(card.Amount ?? 0)")
+                        print("\(card.Eci ?? 0)")
+                        print("\(card.Card6No ?? "")")
+                        print("\(card.Card4No ?? "")")
+                        print("\(card.RedDan ?? 0)")
+                        print("\(card.RedDeAmt ?? 0)")
+                        print("\(card.RedOkAmt ?? 0)")
+                        print("\(card.RedYet ?? 0)")
+                    }
+                    if let atm = callbackState.ATMInfo {
+                        print("\(atm)")
+                        print("\(atm.BankCode ?? "")")
+                        print("\(atm.vAccount ?? "")")
+                        print("\(atm.ExpireDate)")
+                    }
+                    if let cvs = callbackState.CVSInfo {
+                        print("\(cvs)")
+                        print("\(cvs.PaymentNo ?? "")")
+                        print("\(cvs.ExpireDate)")
+                        print("\(cvs.PaymentURL ?? "")")
+                    }
+                    if let barcode = callbackState.BarcodeInfo {
+                        print("\(barcode)")
+                        print("\(barcode.ExpireDate)")
+                        print("\(barcode.Barcode1 ?? "")")
+                        print("\(barcode.Barcode2 ?? "")")
+                        print("\(barcode.Barcode3 ?? "")")
+                    }
+                    
+                }
                 
                 let ac = UIAlertController(title: "提醒您", message: "已經 callback，請看 console!", preferredStyle: UIAlertController.Style.alert)
                 let aa = UIAlertAction(title: "好", style: UIAlertAction.Style.default, handler: nil)
