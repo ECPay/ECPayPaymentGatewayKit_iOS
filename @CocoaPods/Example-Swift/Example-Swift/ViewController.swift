@@ -250,7 +250,12 @@ class ViewController: UIViewController {
                         print("\(order.MerchantTradeNo ?? "")")
                         print("\(order.TradeNo ?? "")")
                         print("\(order.TradeDate)")
-                        print("\(order.TradeStatus ?? 0)")
+                        print("\(order.TradeStatus ?? "")")
+                        print("\(order.PaymentDate)")
+                        print("\(order.TradeAmt ?? 0)")
+                        print("\(order.PaymentType ?? "")")
+                        print("\(order.ChargeFee ?? 0)")
+                        print("\(order.TradeStatus ?? "")")
                     }
                     if let card = callbackState.CardInfo {
                         print("\(card)")
@@ -268,6 +273,12 @@ class ViewController: UIViewController {
                         print("\(card.RedDeAmt ?? 0)")
                         print("\(card.RedOkAmt ?? 0)")
                         print("\(card.RedYet ?? 0)")
+                        print("\(card.PeriodType ?? "")")
+                        print("\(card.Frequency ?? 0)")
+                        print("\(card.ExecTimes ?? 0)")
+                        print("\(card.PeriodAmount ?? 0)")
+                        print("\(card.TotalSuccessTimes ?? 0)")
+                        print("\(card.TotalSuccessAmount ?? 0)")
                     }
                     if let atm = callbackState.ATMInfo {
                         print("\(atm)")
