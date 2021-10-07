@@ -40,7 +40,7 @@ pod 'IQKeyboardManagerSwift'
 pod 'KeychainSwift', '~> 16.0'
 pod 'SwiftyJSON', '~> 4.2.0'
 pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
-pod 'CryptoSwift', '~> 0.14.0'
+pod 'CryptoSwift', '~> 1.4.1'
 ````
 
 由於此套件為 static framework，我們在安裝 cocoapods 前，需要以下指令在 podfile 最底部

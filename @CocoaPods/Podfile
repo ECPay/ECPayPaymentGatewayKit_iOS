@@ -17,7 +17,7 @@ def podsIC
     pod 'KeychainSwift', '~> 16.0'
     pod 'SwiftyJSON', '~> 4.2.0'
     pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
-    pod 'CryptoSwift', '~> 0.14.0'
+    pod 'CryptoSwift', '~> 1.4.1'
 end
 
 target 'Example-Swift' do
