@@ -16,7 +16,7 @@
 
 * XCode 12.2+
 * Swift 5+
-* iOS 10+
+* iOS 11+
 * Cocoapods 1.10.0+
 
 ## Installation
@@ -30,7 +30,7 @@
 
 Podfile內容
 ````ruby
-pod 'ECPayPaymentGatewayKit', '~> 1.0.5'
+pod 'ECPayPaymentGatewayKit', '~> 1.1.0'
 ````
 此套件相依其他 CocoaPods 套件，詳細清單如下：
 ````ruby
@@ -187,7 +187,9 @@ ECPayPaymentGatewayManager.sharedInstance().createPayment(token: token,
             print("\(barcode.Barcode2 ?? "")")
             print("\(barcode.Barcode3 ?? "")")
         }
-        
+        if let unionpay = callbackState.UnionPayInfo {
+            print("\(unionpay.UnionPayURL ?? "")")
+        }
     }
     
     let ac = UIAlertController(title: "提醒您", message: "已經 callback，請看 console!", preferredStyle: UIAlertController.Style.alert)

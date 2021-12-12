@@ -256,6 +256,7 @@ class ViewController: UIViewController {
                         print("\(order.PaymentType ?? "")")
                         print("\(order.ChargeFee ?? 0)")
                         print("\(order.TradeStatus ?? "")")
+                        
                     }
                     if let card = callbackState.CardInfo {
                         print("\(card)")
@@ -299,8 +300,12 @@ class ViewController: UIViewController {
                         print("\(barcode.Barcode2 ?? "")")
                         print("\(barcode.Barcode3 ?? "")")
                     }
+                    if let unionpay = callbackState.UnionPayInfo {
+                        print("\(unionpay.UnionPayURL ?? "")")
+                    }
                     
                 }
+                
                 
                 let ac = UIAlertController(title: "提醒您", message: "已經 callback，請看 console!", preferredStyle: UIAlertController.Style.alert)
                 let aa = UIAlertAction(title: "好", style: UIAlertAction.Style.default, handler: nil)
@@ -429,6 +434,9 @@ extension ViewController {
             "CardList":[
                 ["PayToken":"123456789","Card6No":"123456","Card4No":"1234","IsValid":1,"BankName":"玉山銀行","Code":"002"],
                 ["PayToken":"987456123","Card6No":"654123","Card4No":"1111","IsValid":1,"BankName":"台新銀行","Code":"003"]
+            ],
+            "UnionPayInfo":[
+                "OrderResultURL": "https://www.ecpay.com.tw/"
             ]
         ] as [String : Any]
         

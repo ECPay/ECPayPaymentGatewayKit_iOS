@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+//        ECPayPaymentGatewayManager().testIQKeyboard()
+//        ECPayPaymentGatewayManager().testAPI()
+        
         var envStr:String = "prod"
         if let env = Bundle.main.object(forInfoDictionaryKey: "ENV") as? String {
             envStr = env.lowercased()
