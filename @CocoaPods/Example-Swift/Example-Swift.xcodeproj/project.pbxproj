@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7478D6B19342DB9565A08B96 /* Pods_Example_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF0A66B95478CB8F883E0F9 /* Pods_Example_Swift.framework */; };
 		CA8220562480B9DD00F1BB23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D699ABDF2463E64C00096476 /* Main.storyboard */; };
 		CA8220572480B9DD00F1BB23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D699ABE42463E64D00096476 /* LaunchScreen.storyboard */; };
 		CA9D2D4A25132BE3007D88AC /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D2D4925132BE3007D88AC /* UIViewController.swift */; };
@@ -17,11 +16,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		264C92B318622B55D6F5B01A /* Pods-Example-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-Swift.release.xcconfig"; path = "Target Support Files/Pods-Example-Swift/Pods-Example-Swift.release.xcconfig"; sourceTree = "<group>"; };
-		B2D80E4D15911AE2BC885F4F /* Pods-Example-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-Swift.debug.xcconfig"; path = "Target Support Files/Pods-Example-Swift/Pods-Example-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		CA6FB41224936E2B00675797 /* ECPayPaymentGatewayKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ECPayPaymentGatewayKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA8220512480B9B100F1BB23 /* ECPayPaymentGatewayKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ECPayPaymentGatewayKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9D2D4925132BE3007D88AC /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		CAE60CB027609D5F006F9F0E /* Example-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Example-Swift.entitlements"; sourceTree = "<group>"; };
 		D699ABD62463E64C00096476 /* Example-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D699ABD92463E64C00096476 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D699ABDD2463E64C00096476 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,7 +28,6 @@
 		D699ABE52463E64D00096476 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D699ABE72463E64D00096476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D699ABEE2463E71900096476 /* ECPayPaymentGatewayKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ECPayPaymentGatewayKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDF0A66B95478CB8F883E0F9 /* Pods_Example_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,23 +35,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7478D6B19342DB9565A08B96 /* Pods_Example_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A03D5396F253144C2F0F4A4E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B2D80E4D15911AE2BC885F4F /* Pods-Example-Swift.debug.xcconfig */,
-				264C92B318622B55D6F5B01A /* Pods-Example-Swift.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../Pods;
-			sourceTree = "<group>";
-		};
 		CA9D2D4825132BB5007D88AC /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +55,6 @@
 				D699ABD82463E64C00096476 /* Example-Swift */,
 				D699ABD72463E64C00096476 /* Products */,
 				D699ABED2463E71900096476 /* Frameworks */,
-				A03D5396F253144C2F0F4A4E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +69,7 @@
 		D699ABD82463E64C00096476 /* Example-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				CAE60CB027609D5F006F9F0E /* Example-Swift.entitlements */,
 				CA9D2D4825132BB5007D88AC /* extensions */,
 				D699ABE72463E64D00096476 /* Info.plist */,
 				D699ABD92463E64C00096476 /* AppDelegate.swift */,
@@ -101,7 +87,6 @@
 				CA6FB41224936E2B00675797 /* ECPayPaymentGatewayKit.framework */,
 				CA8220512480B9B100F1BB23 /* ECPayPaymentGatewayKit.framework */,
 				D699ABEE2463E71900096476 /* ECPayPaymentGatewayKit.framework */,
-				DDF0A66B95478CB8F883E0F9 /* Pods_Example_Swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,12 +98,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D699ABEA2463E64D00096476 /* Build configuration list for PBXNativeTarget "Example-Swift" */;
 			buildPhases = (
-				C2BC85506F3C1EC46B476085 /* [CP] Check Pods Manifest.lock */,
 				D699ABD22463E64C00096476 /* Sources */,
 				D699ABD32463E64C00096476 /* Frameworks */,
 				D699ABD42463E64C00096476 /* Resources */,
 				CA8220592480BABC00F1BB23 /* Run Script Archive 移除 framework i386 x86_64 */,
-				ABEFEECE874256A36391980F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,45 +159,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		ABEFEECE874256A36391980F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example-Swift/Pods-Example-Swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example-Swift/Pods-Example-Swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example-Swift/Pods-Example-Swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C2BC85506F3C1EC46B476085 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Example-Swift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CA8220592480BABC00F1BB23 /* Run Script Archive 移除 framework i386 x86_64 */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,14 +328,14 @@
 		};
 		D699ABEB2463E64D00096476 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2D80E4D15911AE2BC885F4F /* Pods-Example-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Example-Swift/Example-Swift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4L8ZYH7944;
+				DEVELOPMENT_TEAM = DBALYQ77CY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Example-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -405,14 +349,14 @@
 		};
 		D699ABEC2463E64D00096476 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 264C92B318622B55D6F5B01A /* Pods-Example-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Example-Swift/Example-Swift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4L8ZYH7944;
+				DEVELOPMENT_TEAM = DBALYQ77CY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Example-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

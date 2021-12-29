@@ -31,7 +31,7 @@ extension UIViewController {
     func loading() {
         
         let maskView = UIView()
-        maskView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        maskView.backgroundColor = UIColor.darkGray.withAlphaComponent(0.55)
         maskView.tag = loadingViewTag()
         maskView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(maskView)

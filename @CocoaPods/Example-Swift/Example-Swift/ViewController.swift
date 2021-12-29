@@ -35,6 +35,8 @@ class ViewController: UIViewController {
     //@IBOutlet var apiTestButton: UIButton!
     @IBOutlet var payButton: UIButton!
     
+    @IBOutlet weak var applePay_stackVw: UIStackView!
+    @IBOutlet weak var applePay_Switch: UISwitch!
     @IBOutlet weak var three_d_stackVw: UIStackView!
     @IBOutlet weak var three_d_Switch: UISwitch!
     
@@ -53,16 +55,29 @@ class ViewController: UIViewController {
     var merchantData: (merchantID: String, aesKey: String, aesIV: String) {
         get {
             
+            //正式環境
             if ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() == "prod" {
                 return (merchantIDTextField.text ?? "",
                         aesKeyTextField.text ?? "",
                         aesIVTextField.text ?? "")
             }
             
+            //apple pay 測試啟動時, 強制帶入以下 merchant 資料
+            if applePay_Switch.isOn {
+                
+                let merchantID = "3085064"
+                let aesKey = "IbbuSaicEBXdejGm" //"GgfULm7egp1UtBWb"
+                let aesIV = "hSNBNMLMMdLHTz0J" // "QzdMzx773m65zjw6"
+                
+                return (merchantID, aesKey, aesIV)
+            }
+            
+            //依照原本的方式
             let is3D = three_d_Switch.isOn
             let merchantID = (is3D) ? "3002607" : "2000132"
             let aesKey = (is3D) ? "pwFHCqoQZGmho4w6" : "5294y06JbISpM5x9"
             let aesIV = (is3D) ? "EkRm7iFT261dpevs" : "v77hoKGq4kWxNNIS"
+            
             return (merchantID, aesKey, aesIV)
         }
     }
@@ -95,19 +110,31 @@ class ViewController: UIViewController {
         tokenTypeChange()
         tokenTypePickerView.selectRow(tokenType, inComponent: 0, animated: false)
         
-        // prod, or...
-        var hideViews: [UIView] = []
-        if ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() == "prod" {
+        
+        //MARK: 依照環境隱藏
+        applePay_Switch.isOn = false //預設 applePay 不給測, 除非 stage.
+        
+        var hideViews: [UIView] = [
+            merchant_id_stackVw, merchantIDTextField,
+            aes_key_stackVw, aesKeyTextField,
+            aes_iv_stackVw, aesIVTextField
+        ]
+        
+        switch ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() {
+        case "prod":
             hideViews = [
                 three_d_stackVw,
                 three_d_Switch
             ]
-        } else {
-            hideViews = [
-                merchant_id_stackVw, merchantIDTextField,
-                aes_key_stackVw, aesKeyTextField,
-                aes_iv_stackVw, aesIVTextField
-            ]
+        case "stage":
+            applePay_Switch.isOn = true
+            switchChanged(mySwitch: applePay_Switch)
+        default:
+            break
+        }
+        if applePay_Switch.isOn == false {
+            //false 的時候隱藏不給測 apple pay.
+            hideViews.append(contentsOf: [applePay_stackVw, applePay_Switch])
         }
         for hideView in hideViews {
             hideView.isHidden = true
@@ -333,7 +360,9 @@ class ViewController: UIViewController {
     }
     @IBAction func switchChanged(mySwitch: UISwitch) {
         //let value = mySwitch.isOn
-        if mySwitch.isEqual(self.three_d_Switch) {
+
+        switch mySwitch {
+        case three_d_Switch:
             
             self.tokenTextField.text = ""
             self.merchantTradeNoTextField.text = ""
@@ -341,6 +370,21 @@ class ViewController: UIViewController {
             self.payButton.isEnabled = false
             self.resultTextView.text = ""
             
+        case applePay_Switch:
+            
+            switchChanged(mySwitch: self.three_d_Switch)
+            
+            self.three_d_Switch.isOn = false
+            let showHideViews = [three_d_Switch, three_d_stackVw]
+            for view in showHideViews {
+                view?.isHidden = mySwitch.isOn
+            }
+            if mySwitch.isOn == false {
+                self.three_d_Switch.isOn = false
+            }
+            
+        default:
+            break
         }
         
     }

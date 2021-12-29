@@ -35,7 +35,7 @@ Podfile內容
 
 ````ruby
 #版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
-pod 'ECPayPaymentGatewayKit', '~> 1.1.0' 
+pod 'ECPayPaymentGatewayKit', '~> 1.2.0' 
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：
@@ -92,10 +92,17 @@ Podfile 內, 移除原本的語法
 
 > ~~'pod ECPayPaymentGatewayKit', '~> 1.1.0'~~
 
+> ~~'pod ECPayPaymentGatewayKit', '~> 1.2.0'~~
+
 確認好你的 podspec 檔案路徑, 然後在 Podfile 內輸入以下
 
 ```ruby
 pod 'ECPayPaymentGatewayKit', :path => '/你的路徑/ECPayPaymentGatewayKit.podspec'
+```
+曾經安裝過SDK的話，請先解除安裝
+
+```ruby
+pod deintegrate '可能需要有 .xcodeproj 的路徑' 
 ```
 請記得做 cache clean, 確保安裝同個版本不會使用到暫存的快取資料
 
@@ -103,7 +110,7 @@ pod 'ECPayPaymentGatewayKit', :path => '/你的路徑/ECPayPaymentGatewayKit.pod
 pod cache clean ECPayPaymentGatewayKit
 ```
 
-再一次安裝
+再一次安裝 (安裝自本地端的 podspec 檔案)
 ```ruby
 pod install --repo-update
 ```
