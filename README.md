@@ -87,6 +87,7 @@ pod install --repo-update
 
 請先下載 ECPayPaymentGatewayKit.podspec 檔案, 各版本連結如下
 * *[1.1.0(1.1.0.65) for XCode 12 podspec file](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS/releases/download/1.1.0_XCode12/ECPayPaymentGatewayKit.podspec)*
+* *[1.2.0(1.2.0.40) for XCode 12 podspec file](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS/releases/download/1.2.0_XCode12/ECPayPaymentGatewayKit.podspec)*
 
 Podfile 內, 移除原本的語法 
 
