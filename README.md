@@ -98,7 +98,7 @@ Podfile 內, 移除原本的語法
 確認好你的 podspec 檔案路徑, 然後在 Podfile 內輸入以下
 
 ```ruby
-pod 'ECPayPaymentGatewayKit', :path => '/你的路徑/ECPayPaymentGatewayKit.podspec'
+pod 'ECPayPaymentGatewayKit', :podspec => '/你的路徑/ECPayPaymentGatewayKit.podspec'
 ```
 曾經安裝過SDK的話，請先解除安裝
 

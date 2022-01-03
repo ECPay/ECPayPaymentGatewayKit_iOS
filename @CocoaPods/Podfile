@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 workspace 'ECPayPaymentGatewayKit-Example'
 
@@ -11,7 +11,7 @@ def podsIC
     #版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
     pod 'ECPayPaymentGatewayKit', '~> 1.2.0'
     
-    #pod 'ECPayPaymentGatewayKit', :path => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
+    #pod 'ECPayPaymentGatewayKit', :podspec => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
 
     ##### Net #####
     pod 'PromiseKit' , '~> 6.8.3'
