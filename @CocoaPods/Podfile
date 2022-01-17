@@ -9,7 +9,7 @@ use_frameworks!
 def podsIC
     
     #版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
-    pod 'ECPayPaymentGatewayKit', '~> 1.2.0'
+    pod 'ECPayPaymentGatewayKit', '~> 1.2.1'
     
     #pod 'ECPayPaymentGatewayKit', :podspec => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
 
