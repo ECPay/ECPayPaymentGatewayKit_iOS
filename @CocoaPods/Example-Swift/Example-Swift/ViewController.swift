@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Example-Swift
 //
-//  Created by ECPay
+//  Created by ECPay.
 //  Copyright © 2020 ECPay. All rights reserved.
 //
 

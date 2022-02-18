@@ -2,7 +2,7 @@
 //  UIViewController+Loading.swift
 //  ECPayPaymentGatewayKit
 //
-//  Created by Aaron Yen on 2020/5/27.
+//  Created by ECPay.
 //  Copyright © 2020 ECPay. All rights reserved.
 //
 

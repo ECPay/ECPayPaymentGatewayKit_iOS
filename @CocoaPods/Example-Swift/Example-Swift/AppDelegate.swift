@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Example-Swift
 //
-//  Created by Mingfeng Ho 何明峯 on 2020/5/7.
+//  Created by ECPay.
 //  Copyright © 2020 ECPay. All rights reserved.
 //
 
