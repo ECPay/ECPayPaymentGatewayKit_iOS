@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Example-Swift
 //
-//  Created by Mingfeng Ho 何明峯 on 2020/5/7.
+//  Created by ECPay
 //  Copyright © 2020 ECPay. All rights reserved.
 //
 
@@ -62,16 +62,6 @@ class ViewController: UIViewController {
                         aesIVTextField.text ?? "")
             }
             
-            //apple pay 測試啟動時, 強制帶入以下 merchant 資料
-            if applePay_Switch.isOn {
-                
-                let merchantID = "3085064"
-                let aesKey = "IbbuSaicEBXdejGm" //"GgfULm7egp1UtBWb"
-                let aesIV = "hSNBNMLMMdLHTz0J" // "QzdMzx773m65zjw6"
-                
-                return (merchantID, aesKey, aesIV)
-            }
-            
             //依照原本的方式
             let is3D = three_d_Switch.isOn
             let merchantID = (is3D) ? "3002607" : "2000132"
@@ -127,7 +117,8 @@ class ViewController: UIViewController {
                 three_d_Switch
             ]
         case "stage":
-            applePay_Switch.isOn = true
+            //applePay_Switch.isOn = true
+            applePay_Switch.isOn = false
             switchChanged(mySwitch: applePay_Switch)
         default:
             break
