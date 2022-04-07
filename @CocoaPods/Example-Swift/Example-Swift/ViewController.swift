@@ -15,7 +15,13 @@ import Alamofire
 class ViewController: UIViewController {
     
     //MARK: - properties
-    private var tokenType:Int = 2 //0:定期定額, 1:國旅卡, 2:付款選擇清單頁, 3:用於非交易類型
+    //0:定期定額, 1:國旅卡, 2:付款選擇清單頁, 3:用於非交易類型
+    private var tokenType:Int = 2 {
+        didSet {
+            flexibleInstallment_Switch.isOn = false
+            flexibleInstallment_stackVw.isHidden = !(tokenType == 2) //等於2, 則不隱藏, 要互斥
+        }
+    }
     private var tokenTypeStrings:[String] = ["0:定期定額", "1:國旅卡", "2:付款選擇頁", "3:非交易類型"]
     private lazy var tokenTypePickerView:UIPickerView
         = UIPickerView(frame: CGRect(x: 0, y: UIScreen.main.bounds.size.height * 0.3, width: UIScreen.main.bounds.size.width, height: 150))
@@ -37,6 +43,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var applePay_stackVw: UIStackView!
     @IBOutlet weak var applePay_Switch: UISwitch!
+    
+    @IBOutlet weak var flexibleInstallment_stackVw: UIStackView!
+    @IBOutlet weak var flexibleInstallment_Switch: UISwitch!
+    
     @IBOutlet weak var three_d_stackVw: UIStackView!
     @IBOutlet weak var three_d_Switch: UISwitch!
     
@@ -93,6 +103,7 @@ class ViewController: UIViewController {
         //three_d_stackVw.isHidden = true
         
         //MARK: tokenType
+        tokenType = 2
         tokenTypeTextField.inputView = tokenTypePickerView
         tokenTypePickerView.delegate = self as UIPickerViewDelegate
         tokenTypePickerView.dataSource = self as UIPickerViewDataSource
@@ -415,6 +426,37 @@ extension ViewController {
                              //當 PeriodType 設為 M 時，最多可設 99 次。
                              //當 PeriodType 設為 Y 時，最多可設 9 次。
         let paymentListType = 0 //currentTestMode == TestMode.is3D ? "1" : "0"
+        var totalAmount_ = 200
+        var cardInfo = [
+            "Redeem":"0",
+            "PeriodAmount":paymentUIType == 0 ? totalAmount_ : 0, //當PaymentUIType為0時，此欄位必填 (必須等於TotalAmount)
+            "PeriodType":periodType,
+            "Frequency":frequency,
+            "ExecTimes":execTimes,
+            "OrderResultURL":"https://www.microsoft.com/",
+            "PeriodReturnURL":"https://www.ecpay.com.tw/",
+            "CreditInstallment":"3,12,24"
+//            "CreditInstallment":"3,12,24",
+//            "FlexibleInstallment":"30"
+        ] as [String : Any]
+        
+        // tokenType:Int = 2 //0:定期定額, 1:國旅卡, 2:付款選擇清單頁, 3:用於非交易類型
+        if tokenType == 1 {
+            //國旅
+            
+//            "TravelStartDate":getMMDDYYYY(),
+//            "TravelEndDate":getMMDDYYYY(),
+//            "TravelCounty":"001",
+            
+            cardInfo["TravelStartDate"] = getMMDDYYYY()
+            cardInfo["TravelEndDate"] = getMMDDYYYY()
+            cardInfo["TravelCounty"] = "001"
+            
+        }
+        if tokenType == 2 && flexibleInstallment_stackVw.isHidden == false && flexibleInstallment_Switch.isOn {
+            totalAmount_ = 20000
+            cardInfo["FlexibleInstallment"] = "30"
+        }
         
         let decryptedDictionary
         =
@@ -427,24 +469,12 @@ extension ViewController {
                //"MerchantTradeNo": "4200000515202003205168406290",
                 "MerchantTradeNo": Int(Date().timeIntervalSince1970 * 1000),
                "MerchantTradeDate": getCurrentDateString(), //"2018/09/03 18:35:20",
-               "TotalAmount": 200,
+               "TotalAmount": totalAmount_,
                "ReturnURL":"https://tw.yahoo.com/",
                "TradeDesc":"測試交易",
                "ItemName":"測試商品"
             ],
-            "CardInfo": [
-                "Redeem":"0",
-                "PeriodAmount":paymentUIType == 0 ? 200 : 0, //當PaymentUIType為0時，此欄位必填 (必須等於TotalAmount)
-                "PeriodType":periodType,
-                "Frequency":frequency,
-                "ExecTimes":execTimes,
-                "OrderResultURL":"https://www.microsoft.com/",
-                "PeriodReturnURL":"https://www.ecpay.com.tw/",
-                "CreditInstallment":"3,12,24",
-                "TravelStartDate":getMMDDYYYY(),
-                "TravelEndDate":getMMDDYYYY(),
-                "TravelCounty":"001"
-            ],
+            "CardInfo": cardInfo,
             "ATMInfo":[
                 "ExpireDate":5
             ],
