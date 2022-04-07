@@ -35,7 +35,7 @@ Podfile內容
 
 ````ruby
 #版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
-pod 'ECPayPaymentGatewayKit', '~> 1.2.1' 
+pod 'ECPayPaymentGatewayKit', '~> 1.3.0'
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：
