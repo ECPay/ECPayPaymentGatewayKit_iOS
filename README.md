@@ -15,8 +15,8 @@
 ## Requirements
 
 * XCode 13+
-* **XCode 12, 另有其他安裝方式**
-* Swift 5+
+* **XCode 12 從 SDK 1.3.1 版本之後將不再支援**
+* Swift 5.5+
 * iOS 11+
 * Cocoapods 1.10.0+
 
@@ -34,8 +34,8 @@
 Podfile內容
 
 ````ruby
-#版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
-pod 'ECPayPaymentGatewayKit', '~> 1.3.0'
+#版本號自 1.3.1 起, SDK 僅支援 XCode13+, 停止支援 XCode12。
+pod 'ECPayPaymentGatewayKit', '~> 1.3.1'
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：
@@ -82,7 +82,7 @@ pod cache clean ECPayPaymentGatewayKit
 #重新安裝更新的版本
 pod install --repo-update
 ````
-
+<!-- 
 ## XCode 12, 安裝方法如下
 
 請先下載 ECPayPaymentGatewayKit.podspec 檔案, 各版本連結如下
@@ -118,6 +118,10 @@ pod cache clean ECPayPaymentGatewayKit
 ```ruby
 pod install --repo-update
 ```
+ -->
+
+
+
 
 ## Usage
 
