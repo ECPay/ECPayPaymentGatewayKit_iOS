@@ -44,7 +44,7 @@ pod 'PromiseKit' , '~> 6.8.3'
 pod 'Alamofire', '~> 5.2.1'
 pod 'IQKeyboardManagerSwift'
 pod 'KeychainSwift', '~> 16.0'
-#pod 'SwiftyJSON', '~> 4.2.0'  #自從 1.3.2 開始, 移除了 SwiftyJSON 的套件參考.
+#pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
 pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
 pod 'CryptoSwift', '~> 1.4.1'
 ````
