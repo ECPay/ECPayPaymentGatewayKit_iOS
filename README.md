@@ -35,18 +35,18 @@ Podfile內容
 
 ````ruby
 #版本號自 1.3.1 起, SDK 僅支援 XCode13+, 停止支援 XCode12。
-pod 'ECPayPaymentGatewayKit', '~> 1.3.3'
+pod 'ECPayPaymentGatewayKit', '1.3.3'
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：
 ````ruby
-pod 'PromiseKit' , '~> 6.8.3'
-pod 'Alamofire', '~> 5.2.1'
+pod 'PromiseKit' , '6.8.5'
+pod 'Alamofire', '5.2.2'
 pod 'IQKeyboardManagerSwift'
-pod 'KeychainSwift', '~> 16.0'
+pod 'KeychainSwift', '16.0.1'
 #pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
 pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
-pod 'CryptoSwift', '~> 1.4.1'
+pod 'CryptoSwift', '1.4.1'
 ````
 
 由於此套件為 static framework，我們在安裝 cocoapods 前，需要以下指令在 podfile 最底部
