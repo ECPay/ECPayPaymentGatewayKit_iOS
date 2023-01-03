@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     
     
     //MARK: - IBOutlet
+    @IBOutlet weak var applePayVIew: UIView!
     @IBOutlet var tokenTextField: UITextField!
     @IBOutlet var merchantTradeNoTextField: UITextField!
     @IBOutlet weak var resultTextView: UITextView!
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var use_resultPage_Switch: UISwitch!
     @IBOutlet weak var use_enUS_Switch: UISwitch!
     
+    @IBOutlet weak var backgroundColorTextField: UITextField!
     var merchantData: (merchantID: String, aesKey: String, aesIV: String) {
         get {
             
@@ -70,6 +72,16 @@ class ViewController: UIViewController {
                 return (merchantIDTextField.text ?? "",
                         aesKeyTextField.text ?? "",
                         aesIVTextField.text ?? "")
+            }
+            
+            //apple pay 測試啟動時, 強制帶入以下 merchant 資料
+            if applePay_Switch.isOn {
+                
+                let merchantID = "3085064"
+                let aesKey = "IbbuSaicEBXdejGm" //"GgfULm7egp1UtBWb"
+                let aesIV = "hSNBNMLMMdLHTz0J" // "QzdMzx773m65zjw6"
+                
+                return (merchantID, aesKey, aesIV)
             }
             
             //依照原本的方式
@@ -97,7 +109,7 @@ class ViewController: UIViewController {
         envLBL.text = ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString()
         
         //apiTestButton.isEnabled = false
-        payButton.isEnabled = false
+//        payButton.isEnabled = false
         
         //three_d_stackVw.isHidden = !(envLBL.text! == "Stage")
         //three_d_stackVw.isHidden = true
@@ -111,6 +123,9 @@ class ViewController: UIViewController {
         tokenTypeChange()
         tokenTypePickerView.selectRow(tokenType, inComponent: 0, animated: false)
         
+        backgroundColorTextField.delegate = self
+        backgroundColorTextField.adjustsFontSizeToFitWidth = true
+        backgroundColorTextField.minimumFontSize = 0.1
         
         //MARK: 依照環境隱藏
         applePay_Switch.isOn = false //預設 applePay 不給測, 除非 stage.
@@ -128,8 +143,7 @@ class ViewController: UIViewController {
                 three_d_Switch
             ]
         case "stage":
-            //applePay_Switch.isOn = true
-            applePay_Switch.isOn = false
+            applePay_Switch.isOn = true
             switchChanged(mySwitch: applePay_Switch)
         default:
             break
@@ -141,6 +155,146 @@ class ViewController: UIViewController {
         for hideView in hideViews {
             hideView.isHidden = true
         }
+        
+        let applePayBtn = ApplePayButton.loadViewFromXib()
+        applePayBtn?.frame = self.applePayVIew.bounds
+        applePayBtn?.onClickApplePayButton = {
+            //MARK: Apple pay button 範例
+            //請在此使用取得的token來呼叫createPaayment
+            let params = self.tradeTokenRequestData(paymentUIType: self.tokenType, merchantID: self.merchantData.merchantID)
+            ECPayPaymentGatewayManager.sharedInstance().eTestingTK(paymentUIType: self.tokenType,
+                                                                                   is3D: self.three_d_Switch.isOn,
+                                                                                   merchantID: self.merchantData.merchantID,
+                                                                                   aesKey: self.merchantData.aesKey,
+                                                                                   aesIV: self.merchantData.aesIV,
+                                                                                   parameters: params){ (state) in
+
+                self.stopLoading()
+
+                print("state.callbackStateStatus = \(state.callbackStateStatus.toString())")
+                print("state.callbackStateMessage = \(state.callbackStateMessage)")
+                print("")
+
+                if state.callbackStateStatus == .Success {
+
+                    self.switchChanged(mySwitch: self.three_d_Switch)
+
+                    let state_ = state as! TestingTokenCallbackState
+                    self.tokenTextField.text = state_.Token
+                    //self.merchantTradeNoTextField.text = String(state_.MerchantTradeNo)
+                    //self.apiTestButton.isEnabled = true
+//                    self.payButton.isEnabled = true
+                    
+                    ECPayPaymentGatewayManager.sharedInstance().createPayment(token: self.tokenTextField.text!,
+                                                                              merchantID: "",
+                                                                              useResultPage: self.use_resultPage_Switch.isOn ? 1 : 0,
+                                                                              appStoreName: "測試的商店(\(ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString()))",
+                                                                              language: self.use_enUS_Switch.isOn ? "en-US" : "zh-TW",
+                                                                              isUseApplePayButton: true)
+                    { (state) in
+                        //
+                        self.resultTextView.text = state.description
+
+        //                print(state)
+        //                print("")
+
+                        // if state.callbackStateStatus == .Success {
+                        //
+                        //     let state_ = state as! CreatePaymentCallbackState
+                        //     print("CreatePaymentCallbackState:")
+                        //     print(" RtnCode = \(state_.RtnCode)")
+                        //     print(" RtnMsg = \(state_.RtnMsg)")
+                        //     print(" MerchantID = \(state_.MerchantID)")
+                        //     print(" OrderInfo = \(state_.OrderInfo)")
+                        //     print(" CardInfo = \(state_.CardInfo)")
+                        //
+                        // }
+
+
+                        if let callbackState = state as? CreatePaymentCallbackState {
+
+                            print("CreatePaymentCallbackState:")
+                            print("RtnCode = \(callbackState.RtnCode)")
+                            print("RtnMsg = \(callbackState.RtnMsg)")
+
+                            if let order = callbackState.OrderInfo {
+                                print("\(order)")
+                                print("\(order.MerchantTradeNo ?? "")")
+                                print("\(order.TradeNo ?? "")")
+                                print("\(order.TradeDate)")
+                                print("\(order.TradeStatus ?? "")")
+                                print("\(order.PaymentDate)")
+                                print("\(order.TradeAmt ?? 0)")
+                                print("\(order.PaymentType ?? "")")
+                                print("\(order.ChargeFee ?? 0)")
+                                print("\(order.TradeStatus ?? "")")
+
+                            }
+                            if let card = callbackState.CardInfo {
+                                print("\(card)")
+                                print("\(card.AuthCode ?? "")")
+                                print("\(card.Gwsr ?? "")")
+                                print("\(card.ProcessDate)")
+                                print("\(card.Stage ?? 0)")
+                                print("\(card.Stast ?? 0)")
+                                print("\(card.Staed ?? 0)")
+                                print("\(card.Amount ?? 0)")
+                                print("\(card.Eci ?? 0)")
+                                print("\(card.Card6No ?? "")")
+                                print("\(card.Card4No ?? "")")
+                                print("\(card.RedDan ?? 0)")
+                                print("\(card.RedDeAmt ?? 0)")
+                                print("\(card.RedOkAmt ?? 0)")
+                                print("\(card.RedYet ?? 0)")
+                                print("\(card.PeriodType ?? "")")
+                                print("\(card.Frequency ?? 0)")
+                                print("\(card.ExecTimes ?? 0)")
+                                print("\(card.PeriodAmount ?? 0)")
+                                print("\(card.TotalSuccessTimes ?? 0)")
+                                print("\(card.TotalSuccessAmount ?? 0)")
+                            }
+                            if let atm = callbackState.ATMInfo {
+                                print("\(atm)")
+                                print("\(atm.BankCode ?? "")")
+                                print("\(atm.vAccount ?? "")")
+                                print("\(atm.ExpireDate)")
+                            }
+                            if let cvs = callbackState.CVSInfo {
+                                print("\(cvs)")
+                                print("\(cvs.PaymentNo ?? "")")
+                                print("\(cvs.ExpireDate)")
+                                print("\(cvs.PaymentURL ?? "")")
+                            }
+                            if let barcode = callbackState.BarcodeInfo {
+                                print("\(barcode)")
+                                print("\(barcode.ExpireDate)")
+                                print("\(barcode.Barcode1 ?? "")")
+                                print("\(barcode.Barcode2 ?? "")")
+                                print("\(barcode.Barcode3 ?? "")")
+                            }
+                            if let unionpay = callbackState.UnionPayInfo {
+                                print("\(unionpay.UnionPayURL ?? "")")
+                            }
+
+                        }
+
+
+                        let ac = UIAlertController(title: "提醒您", message: "已經 callback，請看 console!", preferredStyle: UIAlertController.Style.alert)
+                        let aa = UIAlertAction(title: "好", style: UIAlertAction.Style.default, handler: nil)
+                        ac.addAction(aa)
+                        self.present(ac, animated: true, completion: nil)
+                    }
+
+                } else {
+                    let ac = UIAlertController(title: "提醒您", message: state.callbackStateMessage, preferredStyle: UIAlertController.Style.alert)
+                    let aa = UIAlertAction(title: "好", style: UIAlertAction.Style.default, handler: nil)
+                    ac.addAction(aa)
+                    self.present(ac, animated: true, completion: nil)
+                    self.resultTextView.text = state.callbackStateMessage
+                }
+            }
+        }
+        self.applePayVIew.addSubview(applePayBtn!)
         
     }
     func tokenTypeChange() {
@@ -154,7 +308,7 @@ class ViewController: UIViewController {
         
         self.tokenTextField.text = ""
         //self.apiTestButton.isEnabled = false
-        self.payButton.isEnabled = false
+//        self.payButton.isEnabled = false
         
         let isTradeToken:Bool = (tokenType < 3)
         let isUserToken:Bool = !isTradeToken
@@ -163,8 +317,9 @@ class ViewController: UIViewController {
         
         //MARK: trade token
         if isTradeToken {
+            //取得tradeToken
             let params = tradeTokenRequestData(paymentUIType: tokenType, merchantID: merchantData.merchantID)
-            ECPayPaymentGatewayManager.sharedInstance().testToGetTestingTradeToken(paymentUIType: tokenType,
+            ECPayPaymentGatewayManager.sharedInstance().eTestingTK(paymentUIType: tokenType,
                                                                                    is3D: three_d_Switch.isOn,
                                                                                    merchantID: merchantData.merchantID,
                                                                                    aesKey: merchantData.aesKey,
@@ -185,7 +340,7 @@ class ViewController: UIViewController {
                     self.tokenTextField.text = state_.Token
                     //self.merchantTradeNoTextField.text = String(state_.MerchantTradeNo)
                     //self.apiTestButton.isEnabled = true
-                    self.payButton.isEnabled = true
+//                    self.payButton.isEnabled = true
 
                 } else {
                     let ac = UIAlertController(title: "提醒您", message: state.callbackStateMessage, preferredStyle: UIAlertController.Style.alert)
@@ -199,8 +354,9 @@ class ViewController: UIViewController {
         
         //MARK: user token
         if isUserToken {
+            //取得userToken
             let params = userTokenRequestData(merchantData.merchantID)
-            ECPayPaymentGatewayManager.sharedInstance().testToGetTestingUserToken(is3D: three_d_Switch.isOn,
+            ECPayPaymentGatewayManager.sharedInstance().eTestUT(is3D: three_d_Switch.isOn,
                                                                                   merchantID: merchantData.merchantID,
                                                                                   aesKey: merchantData.aesKey,
                                                                                   aesIV: merchantData.aesIV,
@@ -219,7 +375,7 @@ class ViewController: UIViewController {
                     self.tokenTextField.text = state_.Token
                     //self.merchantTradeNoTextField.text = String(state_.MerchantTradeNo)
                     //self.apiTestButton.isEnabled = true
-                    self.payButton.isEnabled = true
+//                    self.payButton.isEnabled = true
 
                 } else {
                     let ac = UIAlertController(title: "提醒您", message: state.callbackStateMessage, preferredStyle: UIAlertController.Style.alert)
@@ -236,6 +392,10 @@ class ViewController: UIViewController {
         
         if tokenTypeTextField.isFirstResponder {
             tokenTypeTextField.resignFirstResponder()
+        }
+        
+        if backgroundColorTextField.isFirstResponder {
+            backgroundColorTextField.resignFirstResponder()
         }
         
         if
@@ -369,7 +529,7 @@ class ViewController: UIViewController {
             self.tokenTextField.text = ""
             self.merchantTradeNoTextField.text = ""
             //self.apiTestButton.isEnabled = false
-            self.payButton.isEnabled = false
+//            self.payButton.isEnabled = false
             self.resultTextView.text = ""
             
         case applePay_Switch:
@@ -390,8 +550,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
-
 }
 //MARK:- UIPickerViewDelegate / UIPickerViewDataSource
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -540,5 +698,17 @@ extension ViewController {
         //format.dateFormat = "MMddyyyy"
         let formattedDate = format.string(from: date)
         return formattedDate
+    }
+}
+
+extension ViewController: UITextFieldDelegate{
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        guard let strColor = textField.text else{return}
+        ECPayPaymentGatewayManager.sharedInstance().setTitleBarBackgroundColor(colorString: strColor)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
