@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '13.0'
 
 workspace 'ECPayPaymentGatewayKit-Example'
 
@@ -8,10 +8,13 @@ use_frameworks!
 
 def podsIC
     
-    #版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
     pod 'ECPayPaymentGatewayKit', '1.4.0'
-    
-    #pod 'ECPayPaymentGatewayKit', :podspec => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
+
+    # 版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
+    # pod 'ECPayPaymentGatewayKit', :podspec => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
+
+    # 版本號 1.4.1_XCode15 請參考以下網址依步驟另行安裝
+    # https://github.com/ECPay/ECPayPaymentGatewayKit_iOS/releases/tag/1.4.1_XCode15
 
     ##### Net #####
     pod 'PromiseKit' , '6.8.5'
@@ -39,4 +42,12 @@ pre_install do |installer|
       end
     end
   end
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+        end
+    end
 end

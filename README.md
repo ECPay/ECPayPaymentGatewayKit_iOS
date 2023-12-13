@@ -14,7 +14,7 @@
 
 ## Requirements
 
-* XCode 13+
+* XCode 13+ (XCode15 請另行參考 [網址](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS/releases/tag/1.4.1_XCode15) 另外安裝)
 * **XCode 12 從 SDK 1.3.1 版本之後將不再支援**
 * Swift 5.5+
 * iOS 11+
@@ -27,6 +27,8 @@
 > 請注意，此套件使用 XCFramework 製作，Cocoapods 的版本必須要是 1.10.0 以上。
     <br />
     版本號自 1.1.0 起, SDK 僅支援 XCode13, 若仍使用 XCode12, 請往下參考其他安裝方式.
+    <br />
+    若要支援 XCode15, 請另行參考 [網址](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS/releases/tag/1.4.1_XCode15)
 
 ### [CocoaPods](http://cocoapods.org)
 [![CocoaPods](https://img.shields.io/cocoapods/v/ECPayPaymentGatewayKit.svg)](https://cocoapods.org/pods/ECPayPaymentGatewayKit)
