@@ -64,6 +64,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var use_enUS_Switch: UISwitch!
     
     @IBOutlet weak var backgroundColorTextField: UITextField!
+    
+    @IBOutlet weak var inputMerchatDataStack: UIStackView!
+    @IBOutlet weak var testAEStackView: UIStackView!
+    @IBOutlet weak var testAESwitch: UISwitch!
+    
     var merchantData: (merchantID: String, aesKey: String, aesIV: String) {
         get {
             
@@ -86,6 +91,7 @@ class ViewController: UIViewController {
             
             //依照原本的方式
             let is3D = three_d_Switch.isOn
+
             let merchantID = (is3D) ? "3002607" : "2000132"
             let aesKey = (is3D) ? "pwFHCqoQZGmho4w6" : "5294y06JbISpM5x9"
             let aesIV = (is3D) ? "EkRm7iFT261dpevs" : "v77hoKGq4kWxNNIS"
@@ -131,21 +137,22 @@ class ViewController: UIViewController {
         applePay_Switch.isOn = false //預設 applePay 不給測, 除非 stage.
         
         var hideViews: [UIView] = [
-            merchant_id_stackVw, merchantIDTextField,
-            aes_key_stackVw, aesKeyTextField,
-            aes_iv_stackVw, aesIVTextField
+            inputMerchatDataStack
         ]
         
         switch ECPayPaymentGatewayManager.sharedInstance().sdkEnvironmentString().lowercased() {
         case "prod":
             hideViews = [
                 three_d_stackVw,
-                three_d_Switch
+                three_d_Switch,
+                testAEStackView
             ]
+            
         case "stage":
             applePay_Switch.isOn = true
             switchChanged(mySwitch: applePay_Switch)
-        default:
+            testAEStackView.isHidden = true
+        default:    // beta
             break
         }
         if applePay_Switch.isOn == false {
@@ -295,7 +302,7 @@ class ViewController: UIViewController {
             }
         }
         self.applePayVIew.addSubview(applePayBtn!)
-        
+
     }
     func tokenTypeChange() {
         self.tokenTypeTextField.text = self.tokenTypeStrings[self.tokenType]
@@ -319,6 +326,7 @@ class ViewController: UIViewController {
         if isTradeToken {
             //取得tradeToken
             let params = tradeTokenRequestData(paymentUIType: tokenType, merchantID: merchantData.merchantID)
+            ECPayPaymentGatewayManager.sharedInstance().isAETest = testAESwitch.isOn
             ECPayPaymentGatewayManager.sharedInstance().eTestingTK(paymentUIType: tokenType,
                                                                                    is3D: three_d_Switch.isOn,
                                                                                    merchantID: merchantData.merchantID,
@@ -544,7 +552,10 @@ class ViewController: UIViewController {
             if mySwitch.isOn == false {
                 self.three_d_Switch.isOn = false
             }
-            
+
+        case testAESwitch:
+            three_d_Switch.isOn = false
+            three_d_stackVw.isHidden = mySwitch.isOn
         default:
             break
         }
@@ -615,7 +626,7 @@ extension ViewController {
             totalAmount_ = 20000
             cardInfo["FlexibleInstallment"] = "30"
         }
-        
+
         let decryptedDictionary
         =
         [
@@ -647,7 +658,7 @@ extension ViewController {
                 "StoreExpireDate":5
             ],
             "ConsumerInfo": [
-                "MerchantMemberID":"1234567",
+                "MerchantMemberID": "1234567",
                 "Email": "test@gmail.com",
                 "Phone": "0910000222",
                 "Name": "黃小鴨",
