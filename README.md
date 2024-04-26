@@ -15,7 +15,7 @@
 
 ## Requirements
 
-* **XCode15 以下的版本 從 SDK 1.5.0 版本之後將不再支援**
+* XCode 15+ **(SDK 1.5.0 版本之後將不再支援XCode15以下的版本)**
 * Swift 5.5+
 * iOS 13+
 * Cocoapods 1.12.1+
@@ -24,7 +24,7 @@
 
 ### 支援套件管理
 
-> 請注意，此套件使用 XCFramework 製作，Cocoapods 的版本必須要是 1.10.0 以上。
+> 請注意，此套件使用 XCFramework 製作，Cocoapods 的版本必須要是 1.12.1 以上。
     <br />
     XCode15 以下的版本 從 SDK 1.5.0 版本之後將不再支援
 
