@@ -41,8 +41,8 @@ pod 'ECPayPaymentGatewayKit', '1.8.0'
 此套件相依其他 CocoaPods 套件，詳細清單如下：
 ````ruby
 pod 'PromiseKit' , '6.8.5'
-pod 'Alamofire', '5.2.2'
-pod 'IQKeyboardManagerSwift'
+pod 'Alamofire', '5.10.1'
+pod 'IQKeyboardManagerSwift', '7.0.0'
 pod 'KeychainSwift', '16.0.1'
 #pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
 pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
