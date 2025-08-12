@@ -27,7 +27,7 @@
 
 ## 相機權限處理
 
-* 因SDK部分流程需要相機拍照的權限，請在引用的App內加入權限字串(NSCameraUsageDescription)
+* 由於本 SDK 部分功能需使用相機進行拍攝，請於主專案的 Info.plist 檔中加入 NSCameraUsageDescription 權限說明字串，以確保應用程式能正常取得相機使用權限。
 * 承上, SDK 版本 1.8.1 範例程式我們也更新了 Info.plist, 添加了相機權限請求詢問字串
 
 ## IQkeyboard 套件

@@ -8,6 +8,8 @@
 
 import UIKit
 import ECPayPaymentGatewayKit
+import IQKeyboardManagerSwift
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
