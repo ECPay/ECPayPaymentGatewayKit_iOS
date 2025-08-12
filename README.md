@@ -15,18 +15,37 @@
 
 ## Requirements
 
-* XCode 15+ **(SDK 1.5.0 版本之後將不再支援XCode15以下的版本)**
+* XCode 16.2+ **(目前 Apple Store 上架最低版本)**
+    > ### SDK minimum requirements
+    >
+    > Since April 24, 2025
+    >
+    > Apps uploaded to App Store Connect must be built with Xcode 16 or later using an SDK for iOS 18, iPadOS 18, tvOS 18, visionOS 2, or watchOS 11.
 * Swift 5.5+
 * iOS 13+
 * Cocoapods 1.12.1+
+
+## 相機權限處理
+
+* 因SDK部分流程需要相機拍照的權限，請在引用的App內加入權限字串(NSCameraUsageDescription)
+* 承上, SDK 版本 1.8.1 範例程式我們也更新了 Info.plist, 添加了相機權限請求詢問字串
+
+## IQkeyboard 套件
+
+* 關閉了 SDK 內部啟用鍵盤套件 IQKeyboard 的 enabled 參數 (設定 true/false), 避免了一些閃退的問題
+* 如要啟用, 請在 SDK 外部啟用
+    ```swift
+    // AppDelegate.swift
+    IQKeyboardManager.shared.enable = true
+    ```
+* 承上, 此變更於 SDK 版本 1.8.0 變動, 於 SDK 版本 1.8.1 的範例程式加入該程式碼
+* 如有不啟用 IQKeyboard 套件的廠商, SDK 版本 1.8.1 我們做了修正, 可在信用卡編輯頁面的任一鍵盤外區域點擊即可關閉鍵盤
 
 ## Installation
 
 ### 支援套件管理
 
 > 請注意，此套件使用 XCFramework 製作，Cocoapods 的版本必須要是 1.12.1 以上。
-    <br />
-    XCode15 以下的版本 從 SDK 1.5.0 版本之後將不再支援
 
 ### [CocoaPods](http://cocoapods.org)
 [![CocoaPods](https://img.shields.io/cocoapods/v/ECPayPaymentGatewayKit.svg)](https://cocoapods.org/pods/ECPayPaymentGatewayKit)
@@ -34,8 +53,7 @@
 Podfile內容
 
 ````ruby
-#版本號自 1.5.0 起, SDK 僅支援 XCode15+。
-pod 'ECPayPaymentGatewayKit', '1.8.0'
+pod 'ECPayPaymentGatewayKit', '1.8.1'
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：

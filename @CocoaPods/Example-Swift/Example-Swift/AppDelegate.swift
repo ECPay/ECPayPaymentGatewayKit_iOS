@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        ECPayPaymentGatewayManager().testIQKeyboard()
 //        ECPayPaymentGatewayManager().testAPI()
+
+        IQKeyboardManager.shared.enable = true
         
         var envStr:String = "prod"
         if let env = Bundle.main.object(forInfoDictionaryKey: "ENV") as? String {
