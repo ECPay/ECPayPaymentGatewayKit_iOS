@@ -53,7 +53,7 @@
 Podfile內容
 
 ````ruby
-pod 'ECPayPaymentGatewayKit', '1.8.1'
+pod 'ECPayPaymentGatewayKit', '1.8.2'
 ````
 
 此套件相依其他 CocoaPods 套件，詳細清單如下：
