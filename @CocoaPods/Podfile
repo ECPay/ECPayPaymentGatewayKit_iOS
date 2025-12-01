@@ -8,7 +8,7 @@ use_frameworks!
 
 def podsIC
     
-    pod 'ECPayPaymentGatewayKit', '1.8.2'
+    pod 'ECPayPaymentGatewayKit', '1.9.0'
     
     #版本號自 1.5.0 起, SDK 僅支援 XCode15+。若仍使用 其他較低版本 XCode, 請往下參考其他安裝方式.
     # pod 'ECPayPaymentGatewayKit', :podspec => '/你的本地端路徑/ECPayPaymentGatewayKit.podspec'
