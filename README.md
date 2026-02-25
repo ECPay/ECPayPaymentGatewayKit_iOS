@@ -51,36 +51,55 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/ECPayPaymentGatewayKit.svg)](https://cocoapods.org/pods/ECPayPaymentGatewayKit)
 
 Podfile內容
+請把 use_frameworks 使用 linkage static 移除
+```ruby
+use_frameworks! :linkage => :static  ### 如果有使用 static, 請移除此行
 
+#正確如下
+use_frameworks!
+```
+
+指定 SDK 
 ````ruby
 pod 'ECPayPaymentGatewayKit', '1.9.0'
 ````
 
-此套件相依其他 CocoaPods 套件，詳細清單如下：
+在 Podfile 內找到原本設定的相依套件的敘述，直接將其註解掉(Remark) 或者 **刪除**。
 ````ruby
-pod 'PromiseKit' , '6.8.5'
-pod 'Alamofire', '5.10.1'
-pod 'IQKeyboardManagerSwift', '7.0.0'
-pod 'KeychainSwift', '16.0.1'
-#pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
-pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
-pod 'CryptoSwift', '1.4.1'
+# pod 'PromiseKit' , '6.8.5'
+# pod 'Alamofire', '5.10.1'
+# pod 'IQKeyboardManagerSwift', '7.0.0'
+# pod 'KeychainSwift', '16.0.1'
+# #pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
+# pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
+# pod 'CryptoSwift', '1.4.1'
 ````
 
-由於此套件為 static framework，我們在安裝 cocoapods 前，需要以下指令在 podfile 最底部
+在 Podfile 內找到以下，並且將其註解掉(Remark) 或者 **刪除**
 ```ruby
-static_frameworks = ['ECPayPaymentGatewayKit']
-pre_install do |installer|
-  installer.pod_targets.each do |pod|
-    if static_frameworks.include?(pod.name)
-      puts "#{pod.name} installed as static framework!"
-      def pod.static_framework?;
-        true
-      end
-    end
-  end
-end
+# static_frameworks = ['ECPayPaymentGatewayKit']
+# pre_install do |installer|
+#   installer.pod_targets.each do |pod|
+#     if static_frameworks.include?(pod.name)
+#       puts "#{pod.name} installed as static framework!"
+#       def pod.static_framework?;
+#         true
+#       end
+#     end
+#   end
+# end
+```
 
+在 Podfile 內找到以下，並且多加入一行有 "BUILD_LIBRARY_FOR_DISTRIBUTION" 的內容
+```ruby
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'   #######請加入這行
+        end
+    end
+end
 ```
 
 範例專案以 Swift 為主，安裝時請在 [Podfile] 同層目錄下執行以下指令：
