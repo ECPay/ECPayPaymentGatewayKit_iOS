@@ -61,7 +61,7 @@ use_frameworks!
 
 指定 SDK 
 ````ruby
-pod 'ECPayPaymentGatewayKit', '1.9.0'
+pod 'ECPayPaymentGatewayKit', '1.9.1'
 ````
 
 在 Podfile 內找到原本設定的相依套件的敘述，直接將其註解掉(Remark) 或者 **刪除**。
