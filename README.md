@@ -13,6 +13,11 @@
 - 支援非信用卡付款方式
 - 支援AE卡
 
+## 支援 Swift Package Manager (SPM)
+
+* 版本 1.10.0 起, 同步支援 SPM, 安裝網址為 [ECPayPaymentGatewayKit_iOS_SPM](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS_SPM)
+* 此版本 1.11.0 亦同步支援 SPM, 因應 cocoapods 2027年不再支援的規定, 此為最後一版支援 cocoapods 的版本號.
+
 ## Requirements
 
 * XCode 16.2+ **(目前 Apple Store 上架最低版本)**
@@ -61,7 +66,7 @@ use_frameworks!
 
 指定 SDK 
 ````ruby
-pod 'ECPayPaymentGatewayKit', '1.10.0'
+pod 'ECPayPaymentGatewayKit', '1.11.0'
 ````
 
 在 Podfile 內找到原本設定的相依套件的敘述，直接將其註解掉(Remark) 或者 **刪除**。
