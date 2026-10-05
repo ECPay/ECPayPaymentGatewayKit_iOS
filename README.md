@@ -16,7 +16,7 @@
 ## 支援 Swift Package Manager (SPM)
 
 * 版本 1.10.0 起, 同步支援 SPM, 安裝網址為 [ECPayPaymentGatewayKit_iOS_SPM](https://github.com/ECPay/ECPayPaymentGatewayKit_iOS_SPM)
-* 此版本 1.11.0 亦同步支援 SPM, 因應 cocoapods 2027年不再支援的規定, 此為最後一版支援 cocoapods 的版本號.
+* 此版本 1.11.0 亦同步支援 SPM, 因應 cocoapods 2026/12/02 之後只保留唯讀的政策, 此為最後一版支援 cocoapods 的版本號.
 
 ## Requirements
 
