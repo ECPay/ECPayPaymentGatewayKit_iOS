@@ -78,7 +78,7 @@ pod 'ECPayPaymentGatewayKit', '1.11.0'
 # pod 'KeychainSwift', '16.0.1'
 # #pod 'SwiftyJSON', '~> 4.2.0'  #自版本號 1.3.2 起, 移除了 SwiftyJSON 的套件參考.
 # pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
-# pod 'CryptoSwift', '1.4.1'
+# pod 'CryptoSwift', '1.8.0'
 ````
 
 在 Podfile 內找到以下，並且將其註解掉(Remark) 或者 **刪除**
