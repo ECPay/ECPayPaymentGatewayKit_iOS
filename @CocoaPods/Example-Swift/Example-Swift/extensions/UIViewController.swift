@@ -11,8 +11,11 @@ import UIKit
 typealias VC = UIViewController
 extension UIViewController {
     static func topUI() -> UIViewController? {
+        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        let scene = windowScenes.first(where: { $0.activationState == .foregroundActive }) ?? windowScenes.first
         guard
-            let window = UIApplication.shared.keyWindow, let rootViewController = window.rootViewController
+            let window = scene?.windows.first(where: { $0.isKeyWindow }) ?? scene?.windows.first,
+            let rootViewController = window.rootViewController
         else {
             return nil
         }
