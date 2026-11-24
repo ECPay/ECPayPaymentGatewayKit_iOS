@@ -27,7 +27,7 @@
     >
     > Apps uploaded to App Store Connect must be built with Xcode 16 or later using an SDK for iOS 18, iPadOS 18, tvOS 18, visionOS 2, or watchOS 11.
 * Swift 5.5+
-* iOS 13+
+* iOS 15+
 * Cocoapods 1.12.1+
 
 ## 相機權限處理
@@ -101,7 +101,7 @@ pod 'ECPayPaymentGatewayKit', '1.11.0'
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
             config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'   #######請加入這行
         end
     end
